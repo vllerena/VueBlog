@@ -3,34 +3,30 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Info\UserAttr;
 
 class CreateUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    private const USERS_TABLE = UserAttr::TABLE_NAME;
+
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create(self::USERS_TABLE, function (Blueprint $table) {
+            $table->id(UserAttr::ID);
+            $table->string(UserAttr::FULLNAME);
+            $table->string(UserAttr::EMAIL)->unique();
+            $table->string(UserAttr::PASSWORD);
+            $table->string(UserAttr::USER_TYPE)->default('user');
+            $table->boolean(UserAttr::IS_ACTIVATED)->default(0);
+            $table->string(UserAttr::PASSWORD_RESET_CODE)->nullable();
+            $table->string(UserAttr::ACTIVATION_CODE)->nullable();
+            $table->string(UserAttr::SOCIAL_TYPE)->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists(self::USERS_TABLE);
     }
 }
