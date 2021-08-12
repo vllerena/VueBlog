@@ -2121,38 +2121,218 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "tags",
-  created: function created() {
-    var _this = this;
+  data: function data() {
+    return {
+      data: {
+        tagName: ''
+      },
+      editData: {
+        tagName: ''
+      },
+      addModal: false,
+      editModal: false,
+      deleteModal: false,
+      isAdding: false,
+      tags: [],
+      index: -1
+    };
+  },
+  methods: {
+    addTag: function addTag() {
+      var _this = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.callApi('post', 'api/app/create_tag', _this.data);
+
+              case 2:
+                res = _context.sent;
+
+                if (res.status === 201) {
+                  _this.tags.unshift(res.data);
+
+                  _this.success('Tag has been added successfully!');
+
+                  _this.addModal = false;
+                  _this.data.tagName = '';
+                } else {
+                  if (res.status === 422) {
+                    if (res.data.errors.tagName) {
+                      _this.info(res.data.errors.tagName[0]);
+                    }
+                  } else {
+                    _this.swr();
+                  }
+                }
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    editTag: function editTag() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.callApi('post', 'api/app/edit_tag', _this2.editData);
+
+              case 2:
+                res = _context2.sent;
+
+                if (res.status === 200) {
+                  _this2.tags[_this2.index].tagName = _this2.editData.tagName;
+
+                  _this2.success('Tag has been edited successfully!');
+
+                  _this2.editModal = false;
+                } else {
+                  if (res.status === 422) {
+                    if (res.data.errors.tagName) {
+                      _this2.info(res.data.errors.tagName[0]);
+                    }
+                  } else {
+                    _this2.swr();
+                  }
+                }
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    showEditModal: function showEditModal(tag, index) {
+      var obj = {
+        id: tag.id,
+        tagName: tag.tagName
+      };
+      this.editData = obj;
+      this.editModal = true;
+      this.index = index;
+    },
+    deleteTag: function deleteTag(tag, i) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (confirm('Are u sure u want to delete this tag')) {
+                  _context3.next = 2;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 2:
+                _this3.$set(tag, 'isDeleting', true);
+
+                _context3.next = 5;
+                return _this3.callApi('post', 'api/app/delete_tag', tag);
+
+              case 5:
+                res = _context3.sent;
+                console.log(res);
+
+                if (res.status === 200) {
+                  _this3.tags.splice(i, 1);
+
+                  _this3.success('Tag has been deleted successfully!');
+                } else {
+                  _this3.swr();
+                }
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    }
+  },
+  created: function created() {
+    var _this4 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
       var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _context.next = 2;
-              return _this.callApi('post', 'api/app/create_tag', {
-                tagName: 'TestTag'
-              });
+              _context4.next = 2;
+              return _this4.callApi('get', 'api/app/get_tag');
 
             case 2:
-              res = _context.sent;
-              console.log(res);
+              res = _context4.sent;
 
               if (res.status === 200) {
-                console.log(res);
+                _this4.tags = res.data;
+                console.log(_this4.tags);
               } else {
-                console.log('running');
+                _this4.swr();
               }
 
-            case 5:
+            case 4:
             case "end":
-              return _context.stop();
+              return _context4.stop();
           }
         }
-      }, _callee);
+      }, _callee4);
     }))();
   }
 });
@@ -2182,21 +2362,84 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {};
   },
   methods: {
     callApi: function callApi(method, url, dataObj) {
-      try {
-        return axios({
-          method: method,
-          url: url,
-          data: dataObj
-        });
-      } catch (e) {
-        return e.response;
-      }
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios({
+                  method: method,
+                  url: url,
+                  data: dataObj
+                });
+
+              case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](0);
+                return _context.abrupt("return", _context.t0.response);
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 6]]);
+      }))();
+    },
+    info: function info(desc) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Hey!";
+      this.$Notice.info({
+        title: title,
+        desc: desc
+      });
+    },
+    success: function success(desc) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Great!";
+      this.$Notice.success({
+        title: title,
+        desc: desc
+      });
+    },
+    warning: function warning(desc) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Oops!";
+      this.$Notice.warning({
+        title: title,
+        desc: desc
+      });
+    },
+    error: function error(desc) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Error!";
+      this.$Notice.error({
+        title: title,
+        desc: desc
+      });
+    },
+    swr: function swr() {
+      var desc = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Something went wrong!";
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Oops!";
+      this.$Notice.error({
+        title: title,
+        desc: desc
+      });
     }
   }
 });
@@ -67734,6 +67977,13 @@ var render = function() {
                 _vm._v("Tags "),
                 _c(
                   "Button",
+                  {
+                    on: {
+                      click: function($event) {
+                        _vm.addModal = true
+                      }
+                    }
+                  },
                   [
                     _c("Icon", { attrs: { type: "md-add" } }),
                     _vm._v(" Add Tag")
@@ -67745,37 +67995,251 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "_overflow _table_div" }, [
-              _c("table", { staticClass: "_table" }, [
-                _vm._m(0),
+              _c(
+                "table",
+                { staticClass: "_table" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._l(_vm.tags, function(tag, i) {
+                    return _vm.tags.length
+                      ? _c("tr", { key: i }, [
+                          _c("td", [_vm._v(_vm._s(tag.id))]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "_table_name" }, [
+                            _vm._v(_vm._s(tag.tagName))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(tag.created_at))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "Button",
+                                {
+                                  attrs: { type: "info", size: "small" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.showEditModal(tag, i)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Edit")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "Button",
+                                {
+                                  attrs: {
+                                    type: "error",
+                                    size: "small",
+                                    loading: tag.isDeleting
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.deleteModal = true
+                                    }
+                                  }
+                                },
+                                [_vm._v("Delete")]
+                              )
+                            ],
+                            1
+                          )
+                        ])
+                      : _vm._e()
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "Modal",
+              {
+                attrs: {
+                  title: "Add Tag",
+                  "mask-closable": false,
+                  closable: false
+                },
+                model: {
+                  value: _vm.addModal,
+                  callback: function($$v) {
+                    _vm.addModal = $$v
+                  },
+                  expression: "addModal"
+                }
+              },
+              [
+                _c("Input", {
+                  attrs: { placeholder: "Add tag name" },
+                  model: {
+                    value: _vm.data.tagName,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data, "tagName", $$v)
+                    },
+                    expression: "data.tagName"
+                  }
+                }),
                 _vm._v(" "),
-                _c("tr", [
-                  _c("td", [_vm._v("25-05-19")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "_table_name" }, [
-                    _vm._v('Manhattan\'s art center "Shed" opening ceremony')
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("Economy")]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    [
-                      _c("Button", { attrs: { type: "info", size: "small" } }, [
-                        _vm._v("Edit")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "Button",
-                        { attrs: { type: "error", size: "small" } },
-                        [_vm._v("Error")]
-                      )
-                    ],
-                    1
-                  )
-                ])
-              ])
-            ])
-          ]
+                _c(
+                  "div",
+                  { attrs: { slot: "footer" }, slot: "footer" },
+                  [
+                    _c(
+                      "Button",
+                      {
+                        attrs: { type: "default" },
+                        on: {
+                          click: function($event) {
+                            _vm.addModal = false
+                          }
+                        }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "Button",
+                      {
+                        attrs: {
+                          type: "primary",
+                          disabled: _vm.isAdding,
+                          loading: _vm.isAdding
+                        },
+                        on: { click: _vm.addTag }
+                      },
+                      [_vm._v(_vm._s(_vm.isAdding ? "Adding.." : "Add Tag"))]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "Modal",
+              {
+                attrs: {
+                  title: "Edit Tag",
+                  "mask-closable": false,
+                  closable: false
+                },
+                model: {
+                  value: _vm.editModal,
+                  callback: function($$v) {
+                    _vm.editModal = $$v
+                  },
+                  expression: "editModal"
+                }
+              },
+              [
+                _c("Input", {
+                  attrs: { placeholder: "Add tag name" },
+                  model: {
+                    value: _vm.editData.tagName,
+                    callback: function($$v) {
+                      _vm.$set(_vm.editData, "tagName", $$v)
+                    },
+                    expression: "editData.tagName"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { attrs: { slot: "footer" }, slot: "footer" },
+                  [
+                    _c(
+                      "Button",
+                      {
+                        attrs: { type: "default" },
+                        on: {
+                          click: function($event) {
+                            _vm.editModal = false
+                          }
+                        }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "Button",
+                      {
+                        attrs: {
+                          type: "primary",
+                          disabled: _vm.isAdding,
+                          loading: _vm.isAdding
+                        },
+                        on: { click: _vm.editTag }
+                      },
+                      [_vm._v(_vm._s(_vm.isAdding ? "Editing.." : "Edit Tag"))]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "Modal",
+              {
+                attrs: { width: "360" },
+                model: {
+                  value: _vm.deleteModal,
+                  callback: function($$v) {
+                    _vm.deleteModal = $$v
+                  },
+                  expression: "deleteModal"
+                }
+              },
+              [
+                _c(
+                  "p",
+                  {
+                    staticStyle: { color: "#f60", "text-align": "center" },
+                    attrs: { slot: "header" },
+                    slot: "header"
+                  },
+                  [
+                    _c("Icon", { attrs: { type: "ios-information-circle" } }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Delete confirmation")])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticStyle: { "text-align": "center" } }, [
+                  _c("p", [_vm._v("Are u sure u want to delete this tag?")])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { attrs: { slot: "footer" }, slot: "footer" },
+                  [
+                    _c(
+                      "Button",
+                      {
+                        attrs: {
+                          type: "error",
+                          size: "large",
+                          long: "",
+                          loading: _vm.deleteModal,
+                          disabled: _vm.deleteModal
+                        },
+                        on: { click: _vm.deleteTag }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          ],
+          1
         )
       ])
     ])
@@ -67787,11 +68251,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("th", [_vm._v("Date")]),
+      _c("th", [_vm._v("ID")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Title")]),
+      _c("th", [_vm._v("Tag name")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Category")]),
+      _c("th", [_vm._v("Created at")]),
       _vm._v(" "),
       _c("th", [_vm._v("Action")])
     ])

@@ -8,8 +8,6 @@ class TestController extends Controller
 {
     public function createTag()
     {
-        return response()->json([
-            'msg' => 'Some error...'
-        ], 422);
+        return response()->json('Ok mothefucker');
     }
 }
