@@ -17,7 +17,7 @@
                                 <td>{{category.id}}</td>
                                 <td class="_table_name">{{category.categoryName}}</td>
                                 <td class="table_image">
-                                    <img :src="category.iconImage" />
+                                    <img :src="category.iconImage" height="100px"  />
                                 </td>
                                 <td>{{category.created_at}}</td>
                                 <td>

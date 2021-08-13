@@ -4,11 +4,16 @@ Vue.use(Router)
 import home from "./components/pages/home";
 import tags from "./admin/components/pages/tags";
 import categories from "./admin/components/pages/categories";
+import usecom from "./vuex/usecom";
 
 const routes = [
     {
         path: '/',
         component: home,
+    },
+    {
+        path: '/vuex',
+        component: usecom,
     },
     {
         path: '/tags',

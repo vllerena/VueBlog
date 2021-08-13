@@ -14,6 +14,7 @@
                   <div class="_1side_menu_list">
                       <ul class="_1side_menu_list_ul">
                           <li><router-link to="/"><Icon type="ios-speedometer" /> Home</router-link></li>
+                          <li><router-link to="/vuex"><Icon type="ios-speedometer" /> Vuex</router-link></li>
                           <li><router-link to="/tags"><Icon type="md-barcode" /> Tags</router-link></li>
                           <li><router-link to="/categories"><Icon type="md-barcode" /> Category</router-link></li>
                       </ul>
