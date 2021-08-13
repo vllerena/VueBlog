@@ -221,7 +221,7 @@ export default {
                 this.$refs.uploads.clearFiles()
             }
             const res = await this.callApi('post', 'api/app/delete_icon', {iconName: icon})
-            if(res.status != 200){
+            if(res.status !== 200){
                 this.data.iconImage = icon
                 this.swr()
             }
@@ -230,7 +230,6 @@ export default {
             this.editData = category
             this.editModal = true
             this.index = index
-            this.isEditing = true
         },
         showDeleteModal(category, index){
             this.deleteItem = category
@@ -243,10 +242,10 @@ export default {
         },
         handleSuccess (res, file) {
             res = `/uploads/${res}`
-            if(this.isEditing){
+            if(this.isNewIcon){
                 return this.editData.iconImage = res
             }
-            return this.data.iconImage = res
+            this.data.iconImage = res
         },
         handleError (res, file) {
             this.$Notice.error({
@@ -266,7 +265,6 @@ export default {
                 desc: 'File  ' + file.name + ' is too large, no more than 2M.'
             });
         },
-
     },
     async created(){
         this.token = window.Laravel.csrfToken

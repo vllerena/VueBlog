@@ -2207,7 +2207,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 res = _context4.sent;
 
-                if (res.status != 200) {
+                if (res.status !== 200) {
                   _this4.data.iconImage = icon;
 
                   _this4.swr();
@@ -2225,7 +2225,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.editData = category;
       this.editModal = true;
       this.index = index;
-      this.isEditing = true;
     },
     showDeleteModal: function showDeleteModal(category, index) {
       this.deleteItem = category;
@@ -2239,11 +2238,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     handleSuccess: function handleSuccess(res, file) {
       res = "/uploads/".concat(res);
 
-      if (this.isEditing) {
+      if (this.isNewIcon) {
         return this.editData.iconImage = res;
       }
 
-      return this.data.iconImage = res;
+      this.data.iconImage = res;
     },
     handleError: function handleError(res, file) {
       this.$Notice.error({
