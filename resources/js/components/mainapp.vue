@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div>
+      <div v-if="isLoggedIn">
           <div class="_1side_menu" >
               <div class="_1side_menu_logo">
                   <h3 style="text-align:center;">Logo Image</h3>
@@ -41,7 +41,12 @@
 
 <script>
 export default {
-    name: "mainapp"
+    name: "mainapp",
+    data(){
+        return {
+            isLoggedIn: false,
+        }
+    }
 }
 </script>
 

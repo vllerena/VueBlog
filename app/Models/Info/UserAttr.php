@@ -6,7 +6,7 @@ class UserAttr
 {
     const TABLE_NAME = 'users';
     const ID = 'id';
-    const FULLNAME = 'fullname';
+    const FULLNAME = 'fullName';
     const EMAIL = 'email';
     const PASSWORD = 'password';
     const USER_TYPE = 'userType';
@@ -14,4 +14,5 @@ class UserAttr
     const PASSWORD_RESET_CODE = 'passwordResetCode';
     const ACTIVATION_CODE = 'activationCode';
     const SOCIAL_TYPE = 'socialType';
+    const IS_ACTIVE = 'is_active';
 }

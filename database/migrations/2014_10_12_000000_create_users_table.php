@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string(UserAttr::PASSWORD_RESET_CODE)->nullable();
             $table->string(UserAttr::ACTIVATION_CODE)->nullable();
             $table->string(UserAttr::SOCIAL_TYPE)->nullable();
+            $table->boolean(UserAttr::IS_ACTIVE)->default(1);
             $table->timestamps();
         });
     }

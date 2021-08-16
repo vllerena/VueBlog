@@ -21,6 +21,7 @@ class User extends Authenticatable
         UserAttr::PASSWORD_RESET_CODE,
         UserAttr::ACTIVATION_CODE,
         UserAttr::SOCIAL_TYPE,
+        UserAttr::IS_ACTIVE,
     ];
 
     protected $hidden = [
@@ -29,5 +30,6 @@ class User extends Authenticatable
 
     protected $casts = [
         UserAttr::IS_ACTIVATED => 'boolean',
+        UserAttr::IS_ACTIVE => 'boolean',
     ];
 }

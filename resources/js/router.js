@@ -6,11 +6,17 @@ import tags from "./admin/components/pages/tags";
 import categories from "./admin/components/pages/categories";
 import usecom from "./vuex/usecom";
 import adminusers from "./admin/components/pages/adminusers";
+import login from "./admin/components/pages/login"
 
 const routes = [
     {
         path: '/',
         component: home,
+    },
+    {
+        path: '/login',
+        component: login,
+        name: 'login'
     },
     {
         path: '/vuex',
