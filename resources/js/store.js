@@ -6,12 +6,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         counter: 100,
-        deleteModalObj: {
+        deleteModalObj : {
             showDeleteModal: false,
-            deleteUrl: '',
-            data: null,
+            deleteUrl : '',
+            data : null,
             deletingIndex: -1,
-        }
+            isDeleted : false,
+        },
     },
     getters: {
         getCounter(state){
@@ -19,12 +20,24 @@ export default new Vuex.Store({
         },
         getDeleteModalObj(state){
             return state.deleteModalObj
-        }
+        },
     },
     mutations: {
         changeTheCounter(state, data){
             state.counter += data
-        }
+        },
+        setDeleteModal(state, data){
+            state.deleteModalObj = {
+                showDeleteModal: false,
+                deleteUrl: '',
+                data: null,
+                deletingIndex: -1,
+                isDeleted: data,
+            }
+        },
+        setDeletingModalObj(state, data){
+            state.deleteModalObj = data
+        },
     },
     actions: {
         changeCounterAction({commit}, data){
@@ -32,20 +45,3 @@ export default new Vuex.Store({
         }
     }
 })
-export const strict = false
-export const state = () => ({
-
-})
-
-export const getters = {
-
-}
-
-export const mutations = {
-
-}
-
-export const actions = {
-
-}
-

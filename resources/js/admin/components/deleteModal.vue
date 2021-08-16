@@ -1,18 +1,20 @@
 <template>
   <div>
       <Modal
-          :value="getDeleteModalObj.showDeleteModal()"
+          :value="getDeleteModalObj.showDeleteModal"
+          :mask-closable="false"
+          :closable="false"
           width="360">
           <p slot="header" style="color:#f60;text-align:center">
               <Icon type="ios-information-circle"></Icon>
               <span>Delete confirmation</span>
           </p>
           <div style="text-align:center">
-              <p>Are u sure u want to delete this tag?</p>
+              <p>{{getDeleteModalObj.msg}}</p>
           </div>
           <div slot="footer">
-              <Button type="error" size="large" long @click="deleteTag" :disabled="isDeleting" :loading="isDeleting">
-                  {{ isDeleting ? 'Deleting...' : 'Delete Tag' }}</Button>
+              <Button type="default" size="large" @click="closeModal" >Close</Button>
+              <Button type="error" size="large"  :loading="isDeleting" :disabled="isDeleting" @click="deleteTag" >{{ isDeleting ? 'Deleting...' : 'Delete' }}</Button>
           </div>
       </Modal>
   </div>
@@ -30,15 +32,19 @@ export default {
     methods: {
         async deleteTag(){
             this.isDeleting = true
-            const res = await this.callApi('post', getDeleteModalObj.deleteUrl, getDeleteModalObj.data);
+            const res = await this.callApi('post', this.getDeleteModalObj.deleteUrl, this.getDeleteModalObj.data);
             if(res.status === 200){
-                this.success('Tag has been deleted successfully!')
+                this.success(this.getDeleteModalObj.successMsg)
+                this.$store.commit('setDeleteModal', true)
             } else {
                 this.swr()
+                this.$store.commit('setDeleteModal', false)
             }
             this.isDeleting = false
-            this.deleteModal = false
         },
+        closeModal(){
+            this.$store.commit('setDeleteModal', false)
+        }
     },
     computed: {
         ...mapGetters(['getDeleteModalObj'])

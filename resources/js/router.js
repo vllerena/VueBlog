@@ -5,6 +5,7 @@ import home from "./components/pages/home";
 import tags from "./admin/components/pages/tags";
 import categories from "./admin/components/pages/categories";
 import usecom from "./vuex/usecom";
+import adminusers from "./admin/components/pages/adminusers";
 
 const routes = [
     {
@@ -22,6 +23,10 @@ const routes = [
     {
         path: '/categories',
         component: categories,
+    },
+    {
+        path: '/adminusers',
+        component: adminusers,
     },
 ]
 

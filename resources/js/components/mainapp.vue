@@ -17,6 +17,7 @@
                           <li><router-link to="/vuex"><Icon type="ios-speedometer" /> Vuex</router-link></li>
                           <li><router-link to="/tags"><Icon type="md-barcode" /> Tags</router-link></li>
                           <li><router-link to="/categories"><Icon type="md-barcode" /> Category</router-link></li>
+                          <li><router-link to="/adminusers"><Icon type="md-barcode" /> Admin Users</router-link></li>
                       </ul>
                   </div>
               </div>

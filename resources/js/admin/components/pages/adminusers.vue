@@ -3,7 +3,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-                    <p class="_title0">Tags <Button @click="addModal=true"><Icon type="md-add" /> Add Tag</Button></p>
+                    <p class="_title0">Admin User <Button @click="addModal=true"><Icon type="md-add" /> Add Admin</Button></p>
                     <div class="_overflow _table_div">
                         <table class="_table">
                             <tr>
@@ -25,10 +25,12 @@
                     </div>
                     <Modal
                         v-model="addModal"
-                        title="Add Tag"
+                        title="Add Admin"
                         :mask-closable="false"
                         :closable="false">
-                        <Input v-model="data.tagName" placeholder="Add tag name" />
+                        <Input type="text" class="mb-3" v-model="data.tagName" placeholder="Full name" />
+                        <Input type="email" class="mb-3" v-model="data.tagName" placeholder="Email" />
+                        <Input type="password" class="mb-3" v-model="data.tagName" placeholder="Password" />
                         <div slot="footer">
                             <Button type="default" @click="addModal=false">Close</Button>
                             <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding">{{isAdding ? 'Adding..' : 'Add Tag'}}</Button>
@@ -56,12 +58,13 @@
 import deleteModal from '../deleteModal'
 import { mapGetters } from 'vuex'
 export default {
-    name: "tags",
+    name: "adminusers",
     components: {deleteModal},
     data(){
         return{
             data : {
-                tagName: ''
+                tagName: '',
+
             },
             editData: {
                 tagName: ''
